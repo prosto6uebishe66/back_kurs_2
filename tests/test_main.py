@@ -20,5 +20,3 @@ def test_saving_vacancies():
     with open(NEW_VACANCIES_PATH, 'r') as f:
         saved_vacancies = json.load(f)
     assert len(saved_vacancies) > 0
-
-
