@@ -1,22 +1,40 @@
-#from back_kurs_2.Config import OPERATION_PATH
+import json
+
+from back_kurs_2.Config import NEW_VACANCIES_PATH
 from src.class_hh import HeadHunter
 from src.class_json import JSONSaver
 from src.function import create_list_obj, sort_salary_from
 
 
-def user_interaction():
+def clear_file(file_path):
+    """Функция удаляет содержимое файла перед записью новой информации."""
+    try:
+        with open(file_path, 'w+') as file:
+            file.truncate(0)
+        print(f"Файл {file_path} был успешно очищен.")
+    except Exception as e:
+        print(f"Произошла ошибка при очистке файла: {e}")
 
+
+def user_interaction():
+    """
+    программа приветствует пользователя
+    user_vacancy  помогает ему с поиском вакансии
+    user_sorting_number сортирует вакансии для вывода
+    user_top_number помогает вывести топ вакансий
+    chose_another_vac предлагает выбрать другую вакансию
+    или завершить программу
+     """
     print("Здравствуйте! Я Ваш личный помошник в поиске интересующей Вас работы")
     user_vacancy = input("Введите интересующие Вас вакнсию: ").lower().strip()
     hh = HeadHunter()
     vacancy_from_hh = hh.get_vacansies(user_vacancy)
-    saving_vac = JSONSaver('/home/alex/PycharmProjects/pythonProject1/back_kurs_2/data/new_vacancies.json')
+    saving_vac = JSONSaver(NEW_VACANCIES_PATH)
     saving_vac.write_data(vacancy_from_hh)
     user_sorting_number = int(input("Наберите номер для сортировки списка вакансий:\n"
                                     "1 - по возрастанию зарплаты\n"
                                     "2 - по убыванию зарплаты\n"
                                     "3 - без сортировки\n"))
-
 
     vacs_list = create_list_obj(vacancy_from_hh)
 
@@ -49,6 +67,7 @@ def user_interaction():
     elif chose_another_vac in ['n', 'no', 'нет', 'н']:
         print('Программа завершена. \n Желаем удачи!')
         exit()
+
 
 if __name__ == "__main__":
     user_interaction()
