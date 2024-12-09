@@ -1,6 +1,6 @@
 import json
 
-from back_kurs_2.Config import NEW_VACANCIES_PATH
+from back_kurs_2.config import NEW_VACANCIES_PATH
 from src.class_hh import HeadHunter
 from src.class_json import JSONSaver
 from src.function import create_list_obj, sort_salary_from
